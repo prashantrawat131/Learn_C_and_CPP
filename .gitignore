@@ -1,3 +1,9 @@
+#My personel
+.vscode/
+test.c
+
+# For C++
+
 # Prerequisites
 *.d
 

@@ -1,14 +1,24 @@
 #include <stdio.h>
 
-// Both 
+int g(int p)
+{
+    printf("%d", p);
+    return p;
+}
 
-#define SIZE 100
+int h(int q)
+{
+    printf("%d", q);
+    return q;
+}
 
-const int MAX=20;
-
+void f(int x, int y)
+{
+    g(x);
+    h(y);
+}
 int main()
 {
-    int arr[MAX];
-
+    f(g(10), h(20));
     return 0;
 }
