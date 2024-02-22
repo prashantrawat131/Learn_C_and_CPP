@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include<stdlib.h>
+#include <stdlib.h>
 #include <string.h>
 
 int main()
@@ -100,7 +100,32 @@ int main()
     sscanf(inputData, "%[^;];%[^;];%d", fullName, countryName, &age);
     printf("%s from %s is %d years old\n", fullName, countryName, age);
 
+    // Parsing a number from a string
+    char numberStr[][10] = {
+        "221",  // decimal
+        "0xff", // hexdecimal
+        "017"   // octal
+    };
+    for (int i = 0; i < 3; i++)
+    {
+        int num = strtol(numberStr[i], NULL, 0);
+        printf("Number for '%s' is %d\n", numberStr[i], num);
+    }
 
+    // Using snprintf to write to a string array
+    int x = 10;
+    char buf[100];
+    snprintf(buf, 100, "Value of x is %d", x);
+    printf("%s\n", buf);
+
+    // Concatenation in string
+    printf("Hello this is x "
+           "and it value is %d\n",
+           x);
+    char firstPart[13] = "My name is ";
+    char secondPart[15] = "Prashant Rawat";
+    strcat(firstPart, secondPart);
+    printf("%s\n", firstPart);
 
     return 0;
 }
