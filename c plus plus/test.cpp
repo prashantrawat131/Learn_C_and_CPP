@@ -4,20 +4,32 @@
 
 using namespace std;
 
-void bfs(vector<int> *v, int root, int nodeToFind, int *dist, queue<int> q)
-{
-    (*dist)++;
-    for (auto &x : v[root])
+void bfs(vector < int > * v, pair < int, int > root, int nodeToFind, int * dist, queue < pair < int, int > > q) {
+    if (q.empty()) {
+        ( * dist) ++;
+    } else if (root.first != q.front().first) {
+        ( * dist) ++;
+    }
+    // cout << "\nFor root = " << root << endl;
+    for (auto & x: v[root.second])
     {
+        // cout << x << " ";
         if (x == nodeToFind)
         {
             return;
         }
-        q.push(x);
+        q.push(pair(root.second, x));
     }
-    int next = q.front();
+    int next = q.front().second;
     q.pop();
-    bfs(v, next - 1, nodeToFind, dist, q);
+    bfs(v, pair(root.second, next - 1), nodeToFind, dist, q);
+}
+
+void minDist(vector < int > * v, int root, int n, int * dist, queue < pair<int,int> > q)
+{
+    for (int i = 0; i < n; i++) {
+        bfs(v, pair(-1, root), i + 1, dist, q);
+    }
 }
 
 int main()
@@ -29,7 +41,7 @@ int main()
         int n;
         cin >> n;
         cin.get();
-        vector<int> v[n];
+        vector < int > v[n];
         for (int i = 0; i < n; i++)
         {
             string s;
@@ -42,13 +54,6 @@ int main()
             }
         }
 
-        // for (int i = 0; i < n; i++) {
-        //     for (int j = 0; j < v[i].size(); j++) {
-        //         cout << v[i].at(j) << " ";
-        //     }
-        //     cout << "\n";
-        // }
-
         // finding the index of node with max neighbours
         int index = 0;
         for (int i = 0; i < n; i++)
@@ -60,16 +65,12 @@ int main()
             }
         }
 
-        // cout<<"Index = "<<index<<endl;
-
         // counting avg distance from the popular node
         int dist = 0;
-        queue<int> q;
-        for (int i = 0; i < n; i++)
-        {
-            bfs(v, index, i + 1, &dist, q);
-        }
-        double avgDist = (double)dist / (double)n;
+        queue < pair<int, int> > q;
+        minDist(v, index, n, & dist, q);
+
+        double avgDist = (double) dist / (double) n;
         cout << (index + 1) << " " << avgDist << endl;
     }
 }
