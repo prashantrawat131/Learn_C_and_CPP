@@ -3,6 +3,17 @@
 
 using namespace std;
 
+void printVector(vector<int> &v)
+{
+    vector<int>::iterator itr = v.begin();
+    while (itr != v.end())
+    {
+        cout << *itr << " ";
+        itr++;
+    }
+    cout << endl;
+}
+
 int main()
 {
     vector<int> v1;
@@ -56,11 +67,26 @@ int main()
     }
     cout << endl;
 
-// Removing elements from vector v3 till it becomes empty
+    // Removing elements from vector v3 till it becomes empty
     while (!v3.empty())
     {
         v3.pop_back();
     }
+
+    cout << "Size of vector 2 before clear: " << v2.size() << endl;
+    v2.clear();
+    cout << "Size of vector 2 after clear: " << v2.size() << endl;
+
+    v1.insert(v1.begin(), 5);
+    cout << "Vector v1\n";
+    printVector(v1);
+
+    cout << "v1.front() = " << v1.front() << endl;
+    cout << "v1.back() = " << v1.back() << endl;
+
+    v1.erase(v1.begin());
+    cout << "V1 vector after erasing first element\n";
+    printVector(v1);
 
     return 0;
 }
